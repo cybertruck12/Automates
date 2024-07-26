@@ -1,0 +1,58 @@
+name: CI
+
+on: [push, workflow_dispatch]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download ngrok
+      run: wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -O ngrok.tgz
+
+    - name: Extract ngrok
+      run: tar -xvzf ngrok.tgz
+
+    - name: Auth ngrok
+      run: ./ngrok authtoken $NGROK_AUTH_TOKEN
+      env:
+        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+
+    - name: Install SSH server
+      run: sudo apt-get update
+
+    - name: Create SSH tunnel
+      run: ./ngrok tcp 3389 &
+
+    - name: Create docker-compose.yml file
+      run: |
+        echo 'version: "3.8"' > docker-compose.yml
+        echo 'services:' >> docker-compose.yml
+        echo '  windows:' >> docker-compose.yml
+        echo '    image: dockurr/windows' >> docker-compose.yml
+        echo '    container_name: windows' >> docker-compose.yml
+        echo '    environment:' >> docker-compose.yml
+        echo '      VERSION: "win10"' >> docker-compose.yml
+        echo '      LANGUAGE: "French"' >> docker-compose.yml
+        echo '      REGION: "fr-FR"' >> docker-compose.yml
+        echo '      KEYBOARD: "fr-FR"' >> docker-compose.yml
+        echo '      RAM_SIZE: "12G"' >> docker-compose.yml
+        echo '      CPU_CORES: "4"' >> docker-compose.yml
+        echo '    devices:' >> docker-compose.yml
+        echo '      - /dev/kvm' >> docker-compose.yml
+        echo '    cap_add:' >> docker-compose.yml
+        echo '      - NET_ADMIN' >> docker-compose.yml
+        echo '    ports:' >> docker-compose.yml
+        echo '      - 8006:8006' >> docker-compose.yml
+        echo '      - 3389:3389/tcp' >> docker-compose.yml
+        echo '      - 3389:3389/udp' >> docker-compose.yml
+        echo '    stop_grace_period: 2m' >> docker-compose.yml
+
+    - name: Start Docker Compose
+      run: docker-compose up -d
+
+    - name: Sleep for 360 minutes
+      uses: jakejarvis/wait-action@master
+      with:
+        time: '360m'
