@@ -43,8 +43,8 @@ jobs:
         echo '      LANGUAGE: "French"' >> docker-compose.yml
         echo '      REGION: "fr-FR"' >> docker-compose.yml
         echo '      KEYBOARD: "fr-FR"' >> docker-compose.yml
-        echo '      RAM_SIZE: "8G"' >> docker-compose.yml
-        echo '      CPU_CORES: "2"' >> docker-compose.yml
+        echo '      RAM_SIZE: "12G"' >> docker-compose.yml
+        echo '      CPU_CORES: "1"' >> docker-compose.yml
         echo '    devices:' >> docker-compose.yml
         echo '      - /dev/kvm' >> docker-compose.yml
         echo '    cap_add:' >> docker-compose.yml
