@@ -39,11 +39,11 @@ jobs:
         echo '    image: dockurr/windows' >> docker-compose.yml
         echo '    container_name: windows' >> docker-compose.yml
         echo '    environment:' >> docker-compose.yml
-        echo '      VERSION: "2022"' >> docker-compose.yml
+        echo '      VERSION: "tiny10"' >> docker-compose.yml
         echo '      LANGUAGE: "French"' >> docker-compose.yml
         echo '      REGION: "fr-FR"' >> docker-compose.yml
         echo '      KEYBOARD: "fr-FR"' >> docker-compose.yml
-        echo '      RAM_SIZE: "12G"' >> docker-compose.yml
+        echo '      RAM_SIZE: "8G"' >> docker-compose.yml
         echo '      CPU_CORES: "2"' >> docker-compose.yml
         echo '    devices:' >> docker-compose.yml
         echo '      - /dev/kvm' >> docker-compose.yml
