@@ -39,7 +39,7 @@ jobs:
         echo '    image: dockurr/windows' >> docker-compose.yml
         echo '    container_name: windows' >> docker-compose.yml
         echo '    environment:' >> docker-compose.yml
-        echo '      VERSION: "tiny10"' >> docker-compose.yml
+        echo '      VERSION: "win11"' >> docker-compose.yml
         echo '      LANGUAGE: "French"' >> docker-compose.yml
         echo '      REGION: "fr-FR"' >> docker-compose.yml
         echo '      KEYBOARD: "fr-FR"' >> docker-compose.yml
